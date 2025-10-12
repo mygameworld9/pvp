@@ -24,11 +24,10 @@ func redraw_player_list():
 		$StartButton.visible = false
 
 func _on_ready_pressed():
-	var local_id = multiplayer.get_unique_id()
-	var players = LobbyManager.get_players()
-	if players.has(local_id):
-		var current_ready_status = players[local_id].ready
-		LobbyManager.set_ready.rpc(local_id, not current_ready_status)
+	if multiplayer.is_server():
+		LobbyManager.host_toggle_ready_status()
+	else:
+		LobbyManager.request_toggle_ready_status.rpc_id(1)
 
 func _on_start_pressed():
 	if multiplayer.is_server() and LobbyManager.are_all_players_ready():
