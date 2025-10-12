@@ -24,17 +24,16 @@ func _on_player_disconnected(id: int):
 @rpc("authority")
 func request_toggle_ready_status():
 	var id = multiplayer.get_remote_sender_id()
+	# The server calling an RPC on itself has a sender ID of 0.
+	# We treat 0 as the host's ID, which is always 1.
+	if id == 0:
+		id = 1
+	
 	if players.has(id):
 		players[id].ready = not players[id].ready
+		# Broadcast the updated list to all clients
 		update_player_list.rpc(players)
-		# The server won't get the RPC call, so we call it manually
-		update_player_list(players)
-
-func host_toggle_ready_status():
-	var id = 1 # Host is always 1
-	if players.has(id):
-		players[id].ready = not players[id].ready
-		update_player_list.rpc(players)
+		# Update the server's local list as well
 		update_player_list(players)
 
 @rpc("any_peer")

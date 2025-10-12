@@ -24,10 +24,8 @@ func redraw_player_list():
 		$StartButton.visible = false
 
 func _on_ready_pressed():
-	if multiplayer.is_server():
-		LobbyManager.host_toggle_ready_status()
-	else:
-		LobbyManager.request_toggle_ready_status.rpc_id(1)
+	# Both host and clients send an RPC to the server (ID=1) to toggle ready.
+	LobbyManager.request_toggle_ready_status.rpc_id(1)
 
 func _on_start_pressed():
 	if multiplayer.is_server() and LobbyManager.are_all_players_ready():
