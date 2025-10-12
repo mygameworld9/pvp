@@ -2,12 +2,8 @@ extends Control
 
 func _ready():
 	LobbyManager.player_list_changed.connect(Callable(self, "redraw_player_list"))
+	$ReadyButton.pressed.connect(Callable(self, "_on_ready_pressed"))
 	$StartButton.pressed.connect(Callable(self, "_on_start_pressed"))
-	$ReadyButton.toggled.connect(Callable(self, "_on_ready_toggled"))
-	
-	if not multiplayer.is_server():
-		$StartButton.hide()
-
 	redraw_player_list()
 
 func redraw_player_list():
@@ -22,12 +18,18 @@ func redraw_player_list():
 		$PlayerList.add_child(label)
 		
 	if multiplayer.is_server():
-		$StartButton.disabled = not LobbyManager.get_all_players_ready()
+		$StartButton.visible = true
+		$StartButton.disabled = not LobbyManager.are_all_players_ready()
+	else:
+		$StartButton.visible = false
+
+func _on_ready_pressed():
+	var local_id = multiplayer.get_unique_id()
+	var players = LobbyManager.get_players()
+	if players.has(local_id):
+		var current_ready_status = players[local_id].ready
+		LobbyManager.set_ready.rpc(local_id, not current_ready_status)
 
 func _on_start_pressed():
-	# This should only be callable by the host.
-	UIManager.show_game()
-
-func _on_ready_toggled(button_pressed: bool):
-	var my_id = multiplayer.get_unique_id()
-	LobbyManager.server_set_player_ready.rpc_id(1, my_id, button_pressed)
+	if multiplayer.is_server() and LobbyManager.are_all_players_ready():
+		UIManager.show_game()
