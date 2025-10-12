@@ -4,9 +4,9 @@ class_name JumpState
 func enter():
 	character.velocity.y = character.character_data.jump_force
 
-func process_physics(delta: float):
+func process_physics(_delta: float):
 	# Apply gravity
-	character.velocity.y += 980 * delta # Assuming default gravity
+	character.velocity.y += 980 * _delta # Assuming default gravity
 	
 	if character.velocity.y > 0:
 		state_machine.transition_to("Fall")

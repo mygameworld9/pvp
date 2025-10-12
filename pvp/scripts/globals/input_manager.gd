@@ -5,7 +5,7 @@ var intent = {
 	"jump": false
 }
 
-func _process(delta):
+func _process(_delta):
 	intent.move = Input.get_axis("move_left", "move_right")
 	intent.jump = Input.is_action_just_pressed("jump")
 

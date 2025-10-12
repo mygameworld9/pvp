@@ -1,7 +1,7 @@
 extends State
 class_name MoveState
 
-func process_physics(delta: float):
+func process_physics(_delta: float):
 	if not character.is_on_floor():
 		state_machine.transition_to("Fall")
 		return

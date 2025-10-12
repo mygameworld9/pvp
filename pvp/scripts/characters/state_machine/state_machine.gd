@@ -21,7 +21,7 @@ func _physics_process(delta: float):
 	if current_state:
 		current_state.process_physics(delta)
 
-func transition_to(state_name: String, msg: Dictionary = {}):
+func transition_to(state_name: String, _msg: Dictionary = {}):
 	if not states.has(state_name.to_lower()):
 		return
 

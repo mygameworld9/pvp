@@ -1,7 +1,7 @@
 extends Node
 
-@export var main_menu_scene: PackedScene
-@export var lobby_scene: PackedScene
+@export var main_menu_scene: PackedScene = preload("res://scenes/main_menu.tscn")
+@export var lobby_scene: PackedScene = preload("res://scenes/lobby.tscn")
 @export var game_scene: PackedScene = preload("res://scenes/game.tscn")
 
 var current_screen
