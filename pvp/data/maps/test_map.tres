@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="MapData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data_definitions/map_data.gd" id="1_map_data"]
+
+[resource]
+script = ExtResource("1_map_data")
+map_name = "Test Arena"
+map_scene = null
+player_spawn_points = [Vector2(100, 500), Vector2(800, 500)]

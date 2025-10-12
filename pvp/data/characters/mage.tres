@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data_definitions/character_data.gd" id="1_character_data"]
+
+[resource]
+script = ExtResource("1_character_data")
+character_name = "Mage"
+max_health = 100.0
+move_speed = 80.0
+jump_force = -250.0
+skills = []
